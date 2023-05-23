@@ -1,0 +1,62 @@
+openapi: 3.0.1
+info:
+  title: MAL Plugin
+  description: A ChatGPT plugin that allows the user to interact with the myanimelist database and talk about their favorite anime and manga.
+  version: 'v1'
+servers:
+  - url: http://localhost:5003
+paths:
+  /anime/{anime_name}:
+    get:
+      operationId: getAnime
+      summary: Get the list of anime
+      parameters:
+      - in: path
+        name: anime_name
+        schema:
+            type: string
+        required: true
+        description: The name of the anime.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAnimeResponse'
+  /manga/{manga_name}:
+    get:
+      operationId: getManga
+      summary: Get the list of mangas
+      parameters:
+      - in: path
+        name: manga_name
+        schema:
+            type: string
+        required: true
+        description: The name of the manga.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getMangaResponse'
+components:
+  schemas:
+    getAnimeResponse:
+      type: object
+      properties:
+        todos:
+          type: array
+          items:
+            type: string
+          description: The list of animes.
+    getMangaResponse:
+      type: object
+      properties:
+        todos:
+          type: array
+          items:
+            type: string
+          description: The list of mangas.
